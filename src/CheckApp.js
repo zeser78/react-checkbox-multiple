@@ -15,22 +15,24 @@ const App = () => {
   const [amount, setAmount] = useState([0]);
 
   const reducer = (accumulator, currentValue) => accumulator + currentValue;
+  let count = [0];
 
   const handleAllChecked = (event) => {
     // useEffect(() => {
     let fruites = fruite;
-    let count = [0];
     fruites.forEach((fruite) => {
       fruite.isChecked = event.target.checked;
-      if (fruite.isChecked == true) {
+      if (fruite.isChecked === true) {
         count.push(fruite.price);
+      } else {
+        // amount.push(0);
       }
       console.log(fruite.price);
     });
     setFruites(fruites);
     setChecked(!isChecked);
     setAmount(count);
-    console.log(count);
+    // console.log(count);
     // console.log(fruites)
     // }, []);
   };
@@ -40,9 +42,15 @@ const App = () => {
     // setChecked(!isChecked);
     let fruites = fruite;
     fruites.forEach((fruite) => {
-      if (fruite.value === event.target.value)
+      if (fruite.value === event.target.value) {
         fruite.isChecked = event.target.checked;
-      // setFruites(fruites);
+        if (fruite.isChecked == true) {
+          count.push(fruite.price);
+        } else {
+          count.pop(fruite.price);
+        }
+      }
+      setAmount(count);
       setChecked(!isChecked);
       console.log(fruite.value, event.target.value, fruites);
     });
